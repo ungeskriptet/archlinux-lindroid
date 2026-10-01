@@ -1,0 +1,42 @@
+# Maintainer: David Wronek <david.wronek@mainlining.org>
+pkgname=libhybris-lindroid
+pkgver=2026.07.02
+pkgrel=1
+pkgdesc="Compatibility layer to run Android drivers on Linux"
+arch=("aarch64")
+url="https://github.com/Linux-on-droid/libhybris"
+license=("Apache-2.0")
+_commit="c6a03429d12202f0b198d88140610a49ab73ddb0"
+source=("https://github.com/Linux-on-droid/libhybris/archive/${_commit}.tar.gz")
+sha256sums=("281e785be60111816dd03568cab3d2428de6ae921dce8a0741635de7201675bb")
+makedepends=(
+  "android-headers"
+)
+depends=(
+  "libdrm"
+  "mesa"
+  "wayland"
+)
+
+prepare() {
+  cd libhybris-${_commit}/hybris
+  autoreconf -fi
+}
+
+build() {
+  cd libhybris-${_commit}/hybris
+  ./configure \
+    --enable-adreno-quirks \
+    --enable-arch=arm64 \
+    --enable-experimental \
+    --enable-glvnd \
+    --enable-lindroid-drm \
+    --enable-mali-quirks \
+    --enable-property-cache \
+    --enable-wayland
+  make
+}
+
+package() {
+  echo
+}

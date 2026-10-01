@@ -1,0 +1,16 @@
+# Maintainer: David Wronek <david.wronek@mainlining.org>
+pkgname=android-headers
+pkgver=30
+pkgrel=1
+pkgdesc="Android headers"
+arch=("any")
+url="https://github.com/Linux-on-droid/android-headers-30"
+license=("Apache-2.0")
+_commit="a6261c5cce8e945868b68318e867e382dea4bffd"
+source=("https://github.com/Linux-on-droid/android-headers-30/archive/${_commit}.tar.gz")
+sha256sums=('828e3b475161ff2486d1f7a5c3fe2cadf58e3ff8d6a7be1fcb46fe42ee49f621')
+
+package() {
+  cd android-headers-30-${_commit}
+  make PREFIX=/usr DESTDIR="$pkgdir" install
+}
